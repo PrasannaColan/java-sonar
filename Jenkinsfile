@@ -50,22 +50,26 @@ pipeline {
         
         stage('Check Quality Gate') {
             steps {
-               script {
+                script {
+                    // Using curl to get the quality gate status from SonarQube
                     def response = sh(script: "curl -u ${SONARQUBE_API_TOKEN}: ${qualityGateUrl}", returnStdout: true).trim()
-                    
-                    def qualityGateStatus = readJSON text: response
-                    def status = qualityGateStatus.projectStatus.status
-                    
-                    if (status != 'OK') {
-            
-                        error "SonarQube quality gate status: ${status}"
-                        currentBuild.result = 'FAILURE'
-                        
-                    } 
-                   else { 
-                       echo "SonarQube quality gate status: ${status}"
-                      currentBuild.result = 'SUCCESS'
-               }
+
+                    // Ensure response is not empty before processing
+                    if (response) {
+                        // Read the response as JSON
+                        def qualityGateStatus = readJSON text: response
+
+                        // Extract the status from the response
+                        def status = qualityGateStatus.projectStatus.status
+
+                        if (status != 'OK') {
+                            error "SonarQube quality gate status: ${status}"
+                        } else {
+                            echo "SonarQube quality gate status: ${status}"
+                        }
+                    } else {
+                        error "Failed to retrieve quality gate status from SonarQube."
+                    }
                 }
             }
         }
