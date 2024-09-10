@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        qualityGateUrl = 'http://localhost:9000/api/qualitygates/project_status?projectKey=test-pipeline&token=sqa_ffd7389d92ead64b393a693d2fb47d82f42c64f3'
-        SONARQUBE_API_TOKEN = 'sqa_ffd7389d92ead64b393a693d2fb47d82f42c64f3' 
+        qualityGateUrl = 'http://localhost:9000/api/qualitygates/project_status?projectKey=sonar&token=sqp_771bdc133aa2157b35b47b8fdb399803e047664a'
+        SONARQUBE_API_TOKEN = 'sqp_771bdc133aa2157b35b47b8fdb399803e047664a' 
         SONARQUBE_SERVER_URL = 'http://localhost:9000' 
-        SONARQUBE_PROJECT_KEY = 'test-pipeline' 
+        SONARQUBE_PROJECT_KEY = 'sonar' 
        //  NODE_VERSION = '20' 
     }
 
