@@ -1,0 +1,11 @@
+# Maven
+target/
+pom.xml.*
+release.properties
+
+# IntelliJ
+.idea/*
+*.iml
+
+!.idea/fileTemplates/
+!.idea/codeStyles/
